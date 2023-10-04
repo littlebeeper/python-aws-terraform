@@ -7,7 +7,7 @@ terraform {
   required_version = ">= 1.0"
 
   backend "s3" {
-    bucket  = "mogara-terraform"
+    bucket  = "srv-terraform"
     key     = "terraform_global.tfstate"
     region  = "us-west-1"
     profile = "jay"

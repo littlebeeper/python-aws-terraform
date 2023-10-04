@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb562dda-d207-456f-bf45-389750a0af7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/backend/api/params/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/backend/command/account_create.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/backend/db/accounts_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/global/providers.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/global/providers.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/providers.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/providers.tf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +365,7 @@
     <SUITE FILE_PATH="coverage/mogara$pytest_for_test_projects_api_ProjectsApiTest_test_create_manual_task.coverage" NAME="pytest for test_projects_api.ProjectsApiTest.test_create_manual_task Coverage Results" MODIFIED="1682628000329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/mogara_server/tests/api" />
     <SUITE FILE_PATH="coverage/srv-fe$pytest_for_test_projects_api_ProjectsApiTest_test_create_manual_task.coverage" NAME="pytest for test_projects_api.ProjectsApiTest.test_create_manual_task Coverage Results" MODIFIED="1682628000329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/srv-fe_server/tests/api" />
     <SUITE FILE_PATH="coverage/srv-fe$pytest_for_api_test_projects_api.coverage" NAME="pytest for api.test_projects_api Coverage Results" MODIFIED="1682628240891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/srv-fe_server/tests" />
-    <SUITE FILE_PATH="coverage/srv$.coverage" NAME=" Coverage Results" MODIFIED="1696451032683" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests/api" />
+    <SUITE FILE_PATH="coverage/srv$.coverage" NAME=" Coverage Results" MODIFIED="1696451068789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/backend/tests" />
     <SUITE FILE_PATH="coverage/srv-fe$try_out_github_pr_ids.coverage" NAME="try_out_github_pr_ids Coverage Results" MODIFIED="1682029211519" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/srv-fe_server/srv-fe_server/scripts/capitalization_prototype" />
     <SUITE FILE_PATH="coverage/srv-fe$pytest_for_test_accounting_periods_TestModels_test_accounting_periods_quarter_exact_match.coverage" NAME="pytest for test_accounting_periods.TestModels.test_accounting_periods_quarter_exact_match Coverage Results" MODIFIED="1690235446920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/srv-fe_server/tests" />
     <SUITE FILE_PATH="coverage/srv-fe$benchmark_bookend_finder.coverage" NAME="benchmark_bookend_finder Coverage Results" MODIFIED="1681858235487" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/srv-fe_server/srv-fe_server/scripts/capitalization_prototype" />

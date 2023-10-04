@@ -14,8 +14,8 @@ terraform {
   required_version = ">= 1.0"
 
   backend "s3" {
-    bucket  = "mogara-terraform"
-    key     = "terraform.tfstate"
+    bucket  = "srv-terraform"
+    key     = "terraform_workspace_based.tfstate"
     region  = "us-west-1"
     profile = "jay"
   }

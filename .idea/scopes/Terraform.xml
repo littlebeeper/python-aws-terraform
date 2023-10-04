@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Terraform" pattern="file[srv]:terraform/*" />
+</component>

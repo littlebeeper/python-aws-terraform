@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Backend / API" pattern="file[backend]:*/&amp;&amp;!file[mogara_server]:.pytest_cache//*&amp;&amp;!file[mogara_server]:.venv//*&amp;&amp;!file[mogara_server]:mogara_server/mogara-react-app//*&amp;&amp;!file[mogara_server]:mogara_server/react_build_local//*&amp;&amp;!file[mogara_server]:mogara_server/react_build_production//*&amp;&amp;!file[mogara_server]:mogara_server/react_build_qa//*" />
+</component>

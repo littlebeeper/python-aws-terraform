@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PoetryConfigService">
+    <option name="poetryVirtualenvPaths">
+      <set>
+        <option value="$PROJECT_DIR$/mogara_server/.venv/bin/python" />
+        <option value="$PROJECT_DIR$/backend/.venv/bin/python" />
+      </set>
+    </option>
+  </component>
+</project>

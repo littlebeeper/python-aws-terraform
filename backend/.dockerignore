@@ -1,0 +1,7 @@
+**/srv-fe
+tests
+**/react_build_production
+**/react_build_qa
+**/react_build_local
+**/.venv
+**/eval

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/backend/.idea/backend.iml" filepath="$PROJECT_DIR$/backend/.idea/backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mogara_activity_capture/.idea/mogara_activity_capture.iml" filepath="$PROJECT_DIR$/mogara_activity_capture/.idea/mogara_activity_capture.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mogara_pipeline/.idea/mogara_pipeline.iml" filepath="$PROJECT_DIR$/mogara_pipeline/.idea/mogara_pipeline.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/srv.iml" filepath="$PROJECT_DIR$/.idea/srv.iml" />
+    </modules>
+  </component>
+</project>

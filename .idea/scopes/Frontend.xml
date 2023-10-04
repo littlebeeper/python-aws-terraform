@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Frontend" pattern="file[backend]:mogara_server/mogara-react-app//*&amp;&amp;!file[mogara_server]:mogara_server/mogara-react-app/node_modules//*" />
+</component>

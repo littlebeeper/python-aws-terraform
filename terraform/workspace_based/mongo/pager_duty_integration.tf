@@ -1,10 +1,10 @@
  # service key in aws secrets manager
- data "aws_secretsmanager_secret" "pg_service_key" {
-     name = "${terraform.workspace}/pager_duty/mongo_atlas_integration_key"
+ data "aws_secretsmanager_secret" "pd_service_key" {
+   name = var.secrets_manager_key_pd_integration_key
  }
 
  data "aws_secretsmanager_secret_version" "pg_service_key" {
-     secret_id = data.aws_secretsmanager_secret.pg_service_key.id
+     secret_id = data.aws_secretsmanager_secret.pd_service_key.id
  }
 
 resource "mongodbatlas_third_party_integration" "pagerduty_integration" {

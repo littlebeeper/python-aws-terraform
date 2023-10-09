@@ -3,15 +3,11 @@ provider "aws" {
 }
 
 resource "aws_ecr_repository" "this" {
-  name = local.scoped_name
-
-  tags = {
-    VantaNonProd = terraform.workspace != "production"
-  }
+  name = var.lambda_function_name
 }
 
 resource "aws_lambda_function" "lambda_function" {
-  function_name = local.scoped_name
+  function_name = var.lambda_function_name
   timeout       = 900
   image_uri     = "${aws_ecr_repository.this.repository_url}:latest"
   package_type  = "Image"
@@ -25,7 +21,7 @@ resource "aws_lambda_function" "lambda_function" {
 }
 
 resource "aws_iam_role" "function_role" {
-  name = "${local.scoped_name}_role"
+  name = "${var.lambda_function_name}_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -58,8 +54,8 @@ resource "aws_iam_role_policy_attachment" "lambda_vpc_policy" {
 }
 
 resource "aws_iam_policy" "secrets_manager_access" {
-  name        = "${local.scoped_name}_secrets_manager_access"
-  description = "Allows access to secrets manager for ${local.scoped_name}"
+  name        = "${var.lambda_function_name}_secrets_manager_access"
+  description = "Allows access to secrets manager for ${var.lambda_function_name}"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -84,8 +80,8 @@ resource "aws_iam_role_policy_attachment" "secrets_manager_access" {
 }
 
 resource "aws_iam_policy" "s3_access" {
-    name        = "${local.scoped_name}_s3_access"
-    description = "Allows access to s3 for ${local.scoped_name}"
+    name        = "${var.lambda_function_name}_s3_access"
+    description = "Allows access to s3 for ${var.lambda_function_name}"
     policy = jsonencode({
         Version = "2012-10-17"
         Statement = [
@@ -109,8 +105,8 @@ resource "aws_iam_role_policy_attachment" "s3_access" {
 }
 
 resource "aws_iam_policy" "sns_topic_publish_access" {
-    name        = "${local.scoped_name}_sns_topic_publish_access"
-    description = "Allows access to publish to sns topic for ${local.scoped_name}"
+    name        = "${var.lambda_function_name}_sns_topic_publish_access"
+    description = "Allows access to publish to sns topic for ${var.lambda_function_name}"
     policy = jsonencode({
         Version = "2012-10-17"
         Statement = [

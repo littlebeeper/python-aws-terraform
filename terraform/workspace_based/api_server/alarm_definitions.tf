@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "cpu_utilization" {
-  alarm_name                = "${local.mapi_scoped_name}-cpu-utilization-too-high"
+  alarm_name                = "${var.name}-cpu-utilization-too-high"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   threshold                 = "80"
@@ -21,8 +21,8 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization" {
       period      = "120"
       stat        = "Sum"
       dimensions = {
-        ClusterName = aws_ecs_cluster.mapi.name
-        ServiceName = aws_ecs_service.mapi.name
+        ClusterName = aws_ecs_cluster.this.name
+        ServiceName = aws_ecs_service.this.name
       }
     }
   }
@@ -35,15 +35,15 @@ resource "aws_cloudwatch_metric_alarm" "cpu_utilization" {
       period      = "120"
       stat        = "Sum"
       dimensions = {
-        ClusterName = aws_ecs_cluster.mapi.name
-        ServiceName = aws_ecs_service.mapi.name
+        ClusterName = aws_ecs_cluster.this.name
+        ServiceName = aws_ecs_service.this.name
       }
     }
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "memory_utilization" {
-  alarm_name                = "${local.mapi_scoped_name}-memory-utilization-too-high"
+  alarm_name                = "${var.name}-memory-utilization-too-high"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   threshold                 = "80"
@@ -65,8 +65,8 @@ resource "aws_cloudwatch_metric_alarm" "memory_utilization" {
       period      = "120"
       stat        = "Sum"
       dimensions = {
-          ClusterName = aws_ecs_cluster.mapi.name
-          ServiceName = aws_ecs_service.mapi.name
+          ClusterName = aws_ecs_cluster.this.name
+          ServiceName = aws_ecs_service.this.name
       }
     }
   }
@@ -79,15 +79,15 @@ resource "aws_cloudwatch_metric_alarm" "memory_utilization" {
       period      = "120"
       stat        = "Sum"
       dimensions = {
-        ClusterName = aws_ecs_cluster.mapi.name
-        ServiceName = aws_ecs_service.mapi.name
+        ClusterName = aws_ecs_cluster.this.name
+        ServiceName = aws_ecs_service.this.name
       }
     }
   }
 }
 
 resource "aws_cloudwatch_metric_alarm" "response500s" {
-  alarm_name                = "${local.mapi_scoped_name}-response-500s"
+  alarm_name                = "${var.name}-response-500s"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "1"
   threshold                 = "1"
@@ -96,7 +96,7 @@ resource "aws_cloudwatch_metric_alarm" "response500s" {
 
   metric_query {
     id = "response500s"
-    expression  = "SELECT SUM(${terraform.workspace}_500) FROM CWAgent WHERE metric_type = 'counter'"
+    expression  = "SELECT SUM(${var.cloudwatch_500s_alarm_name}) FROM CWAgent WHERE metric_type = 'counter'"
     period      = "120"
     return_data = true
   }

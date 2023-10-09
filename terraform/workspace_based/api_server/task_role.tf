@@ -1,5 +1,5 @@
 resource "aws_iam_role" "mapi_task_role" {
-  name = "${local.mapi_scoped_name}-task-role"
+  name = "${var.name}-task-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_assume_role.json
 }
 

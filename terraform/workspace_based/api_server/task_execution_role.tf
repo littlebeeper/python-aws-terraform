@@ -4,7 +4,7 @@
 # The assume_role_policy field works with the following aws_iam_policy_document to allow
 # ECS tasks to assume this role we're creating.
 resource "aws_iam_role" "mapi_task_execution_role" {
-  name               = "${local.mapi_scoped_name}-task-execution-role"
+  name               = "${var.name}-task-execution-role"
   assume_role_policy = data.aws_iam_policy_document.ecs_task_execution_assume_role.json
 }
 
@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role" {
 
 # Define policy to allow access to s3 bucket w/ environment variable file
 resource "aws_iam_policy" "s3_read_only_env_bucket_access" {
-  name        = "${local.mapi_scoped_name}s3-read-only-access"
+  name        = "${var.name}s3-read-only-access"
   description = "Read-only access to S3 env bucket"
   policy      = jsonencode({
     Version = "2012-10-17"

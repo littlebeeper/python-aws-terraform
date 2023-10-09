@@ -4,7 +4,7 @@ resource "random_password" "admin_user_password" {
 }
 
 resource "aws_secretsmanager_secret" "secrets_manager_entry_admin_user_password" {
-  name = "${terraform.workspace}/mongo/admin_user_password"
+  name = "${var.name}/mongo/admin_user_password"
   description = "MongoDB admin user password for ${mongodbatlas_serverless_instance.mapi_db_instance.name}"
   recovery_window_in_days = 0
 }

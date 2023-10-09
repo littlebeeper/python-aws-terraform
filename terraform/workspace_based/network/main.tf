@@ -5,47 +5,47 @@ resource "aws_vpc" "vpc" {
   enable_dns_support   = true
 
   tags = {
-    "Name" = "vpc | ${terraform.workspace}"
+    "Name" = "vpc | ${var.name}"
   }
 }
 
 resource "aws_subnet" "public_a" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.0/25"
-  availability_zone = "${local.mogara_region}a"
+  availability_zone = "${var.region}a"
 
   tags = {
-    "Name" = "public | ${local.mogara_region}-a"
+    "Name" = "public | ${var.region}-a"
   }
 }
 
 resource "aws_subnet" "private_a" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.2.0/25"
-  availability_zone = "${local.mogara_region}a"
+  availability_zone = "${var.region}a"
 
   tags = {
-    "Name" = "private | ${local.mogara_region}-a"
+    "Name" = "private | ${var.region}-a"
   }
 }
 
 resource "aws_subnet" "public_c" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.1.128/25"
-  availability_zone = "${local.mogara_region}c"
+  availability_zone = "${var.region}c"
 
   tags = {
-    "Name" = "public | ${local.mogara_region}-c"
+    "Name" = "public | ${var.region}-c"
   }
 }
 
 resource "aws_subnet" "private_c" {
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = "10.0.2.128/25"
-  availability_zone = "${local.mogara_region}c"
+  availability_zone = "${var.region}c"
 
   tags = {
-    "Name" = "private | ${local.mogara_region}-c"
+    "Name" = "private | ${var.region}-c"
   }
 }
 

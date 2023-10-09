@@ -1,3 +1,7 @@
+variable "lambda_function_name" {
+  type = string
+}
+
 variable "egress_security_group_id" {
   type = string
 }

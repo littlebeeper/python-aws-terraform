@@ -1,6 +1,6 @@
 # lambda alert definition on error rate
 resource "aws_cloudwatch_metric_alarm" "lambda_error_rate" {
-  alarm_name                = "${local.scoped_name}-lambda-error-rate"
+  alarm_name                = "${var.lambda_function_name}-lambda-error-rate"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = 1
   threshold                 = 2

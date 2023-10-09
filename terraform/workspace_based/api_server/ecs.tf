@@ -1,52 +1,44 @@
 # We need a cluster in which to put our service.
-resource "aws_ecs_cluster" "mapi" {
-  name = local.mapi_scoped_name
+resource "aws_ecs_cluster" "this" {
+  name = var.name
 
   setting {
     name  = "containerInsights"
     value = "enabled"
   }
-
-  tags = {
-    VantaNonProd = terraform.workspace != "production"
-  }
 }
 
 # An ECR repository is a private alternative to Docker Hub.
-resource "aws_ecr_repository" "mapi" {
-  name = local.mapi_scoped_name
-
-  tags = {
-    VantaNonProd = terraform.workspace != "production"
-  }
+resource "aws_ecr_repository" "this" {
+  name = var.name
 }
 
 # Log groups hold logs from our app.
-resource "aws_cloudwatch_log_group" "mapi" {
-  name = "/ecs/${local.mapi_scoped_name}"
+resource "aws_cloudwatch_log_group" "this" {
+  name = "/ecs/${var.name}"
 
   retention_in_days = 365
 }
 
-resource "aws_cloudwatch_log_group" "cloudwatch_agent" {
-  name = "ecs/${local.mapi_scoped_name}/cloudwatch-agent"
+resource "aws_cloudwatch_log_group" "cloudwatch_agent_log_group" {
+  name = "ecs/${var.name}/cloudwatch-agent"
 
   retention_in_days = 365
 }
 
 # The main service.
-resource "aws_ecs_service" "mapi" {
-  name            = local.mapi_scoped_name
+resource "aws_ecs_service" "this" {
+  name            = var.name
   task_definition = aws_ecs_task_definition.mapi.arn
-  cluster         = aws_ecs_cluster.mapi.id
+  cluster         = aws_ecs_cluster.this.id
   launch_type     = "FARGATE"
 
   desired_count = 1
   enable_execute_command = true
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.mapi.arn
-    container_name   = local.mapi_scoped_name
+    target_group_arn = aws_lb_target_group.this.arn
+    container_name   = var.name
     container_port   = "80"
   }
 
@@ -60,27 +52,18 @@ resource "aws_ecs_service" "mapi" {
 
     subnets = var.private_subnet_ids
   }
-
-  tags = {
-    VantaNonProd = terraform.workspace != "production"
-    VantaContainsUserData = "true"
-  }
 }
 
 # The s3 bucket containing our env files.
-resource "aws_s3_bucket" "mapi_env" {
-  bucket        = "mogara-api-env-${terraform.workspace}"
+resource "aws_s3_bucket" "env_bucket" {
+  bucket        = var.env_bucket_name
 
   force_destroy = true
-
-  tags = {
-    VantaNonProd = terraform.workspace != "production"
-  }
 }
 
 # block all public access
 resource "aws_s3_bucket_public_access_block" "mapi_env" {
-  bucket = aws_s3_bucket.mapi_env.id
+  bucket = aws_s3_bucket.env_bucket.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -89,13 +72,13 @@ resource "aws_s3_bucket_public_access_block" "mapi_env" {
 }
 
 resource "aws_ssm_parameter" "mapi_cloudwatch_agent_configuration" {
-  name        = "/${local.mapi_scoped_name}/cloudwatch/config"
-  description = "CloudWatch Agent configuration for ${local.mapi_scoped_name}"
+  name        = "/${var.name}/cloudwatch/config"
+  description = "CloudWatch Agent configuration for ${var.name}"
   type        = "String"
   value       = jsonencode({
     "agent" : {
       "metrics_collection_interval" : 60,
-      "region" : "${local.mogara_region}",
+      "region" : var.region,
       "logfile" : "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
       "debug" : true
     },
@@ -113,7 +96,7 @@ resource "aws_ssm_parameter" "mapi_cloudwatch_agent_configuration" {
 
 # The task definition for our app.
 resource "aws_ecs_task_definition" "mapi" {
-  family = local.mapi_scoped_name
+  family = var.name
 
   task_role_arn = aws_iam_role.mapi_task_role.arn
   container_definitions = jsonencode(
@@ -129,13 +112,13 @@ resource "aws_ecs_task_definition" "mapi" {
     },
     {
       name: "celery-worker",
-      image: "${aws_ecr_repository.mapi.repository_url}:latest",
+      image: "${aws_ecr_repository.this.repository_url}:latest",
       command: [
         "celery", "-A", "backend.celery_worker.celery_app", "worker", "--uid", "myuser", "--loglevel=DEBUG",
       ],
       environmentFiles: [
           {
-              value: "${aws_s3_bucket.mapi_env.arn}/.env",
+              value: "${aws_s3_bucket.env_bucket.arn}/.env",
               type: "s3"
           }
       ],
@@ -148,18 +131,18 @@ resource "aws_ecs_task_definition" "mapi" {
       logConfiguration: {
         logDriver: "awslogs",
         options: {
-          awslogs-region: local.mogara_region,
-          awslogs-group: aws_cloudwatch_log_group.mapi.name,
+          awslogs-region: var.region,
+          awslogs-group: aws_cloudwatch_log_group.this.name,
           awslogs-stream-prefix: "ecs"
         }
       }
     },
     {
-      name: local.mapi_scoped_name,
-      image: "${aws_ecr_repository.mapi.repository_url}:latest",
+      name: var.name,
+      image: "${aws_ecr_repository.this.repository_url}:latest",
       environmentFiles: [
           {
-              value: "${aws_s3_bucket.mapi_env.arn}/.env",
+              value: "${aws_s3_bucket.env_bucket.arn}/.env",
               type: "s3"
           }
       ],
@@ -180,8 +163,8 @@ resource "aws_ecs_task_definition" "mapi" {
       logConfiguration: {
         logDriver: "awslogs",
         options: {
-          awslogs-region: local.mogara_region,
-          awslogs-group: aws_cloudwatch_log_group.mapi.name,
+          awslogs-region: var.region,
+          awslogs-group: aws_cloudwatch_log_group.this.name,
           awslogs-stream-prefix: "ecs"
         }
       }
@@ -206,8 +189,8 @@ resource "aws_ecs_task_definition" "mapi" {
       logConfiguration: {
           logDriver: "awslogs",
           options: {
-            awslogs-group: "${aws_cloudwatch_log_group.cloudwatch_agent.name}",
-            awslogs-region: "${local.mogara_region}",
+            awslogs-group: aws_cloudwatch_log_group.cloudwatch_agent_log_group.name,
+            awslogs-region: var.region,
             awslogs-stream-prefix: "ecs"
           }
       }

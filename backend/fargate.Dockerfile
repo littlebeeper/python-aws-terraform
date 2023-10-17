@@ -6,7 +6,7 @@ RUN apt-get update && apt-get upgrade -y
 #
 # Setup non-Python environment and dependencies
 #
-RUN apt-get install -y wkhtmltopdf
+# RUN apt-get install -y wkhtmltopdf
 
 #
 # Setup Python environment and dependencies
@@ -31,4 +31,4 @@ RUN useradd -m myuser
 #USER myuser
 
 # converted to CMD [...]:
-CMD ["gunicorn", "backend.backend_api:app", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:80", "--workers", "2", "--max-requests", "500", "--log-level", "debug"]
+CMD ["gunicorn", "backend.backend_fargate:app", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:80", "--workers", "2", "--max-requests", "500", "--log-level", "debug"]

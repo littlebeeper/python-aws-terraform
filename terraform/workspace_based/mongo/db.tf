@@ -1,4 +1,4 @@
-resource "mongodbatlas_project" "mapi_db_project" {
+resource "mongodbatlas_project" "this" {
   name   = "${var.name}-project"
   org_id = "63ae2c9231ce5803703fc5dd"
 
@@ -9,8 +9,8 @@ resource "mongodbatlas_project" "mapi_db_project" {
   is_schema_advisor_enabled                        = true
 }
 
-resource "mongodbatlas_serverless_instance" "mapi_db_instance" {
-  project_id   = mongodbatlas_project.mapi_db_project.id
+resource "mongodbatlas_serverless_instance" "this" {
+  project_id   = mongodbatlas_project.this.id
   name         = "${var.name}-serverless-instance"
 
   provider_settings_backing_provider_name = "AWS"
@@ -19,7 +19,17 @@ resource "mongodbatlas_serverless_instance" "mapi_db_instance" {
 }
 
 resource "mongodbatlas_project_ip_access_list" "webserver_ip_access" {
-  project_id = mongodbatlas_project.mapi_db_project.id
+  project_id = mongodbatlas_project.this.id
   ip_address = var.webserver_ip
   comment    = "${var.name} webserver ip"
+}
+
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
+resource "mongodbatlas_project_ip_access_list" "my_ip_access" {
+  project_id = mongodbatlas_project.this.id
+  ip_address = chomp(data.http.myip.response_body)
+  comment    = "allows my ip to access ${var.name} db"
 }

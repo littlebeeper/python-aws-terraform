@@ -15,9 +15,13 @@ output "db_connection_strings_private_srv" {
 }
 
 output "db_user_admin_password_secrets_manager_key" {
-  value = module.db.user_admin_password_secrets_manager_key
+  value = module.db.db_user_admin_password_secrets_manager_key
 }
 
 output "alb_dns_name" {
   value = module.api_server.alb_dns_name
+}
+
+output "jaygokhale_fe_domain_name" {
+  value = module.frontend_cdn.distribution_domain_name
 }

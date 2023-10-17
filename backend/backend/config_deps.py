@@ -2,7 +2,7 @@ import functools
 import logging
 
 from backend.config import Config, DbConfig
-from backend.config_helpers import resolve, resolve_flask_env, resolve_secret
+from backend.config_helpers import resolve, resolve_secret
 from backend.env import Environment
 
 
@@ -47,15 +47,19 @@ def app_config(
             logging.info("credentials.secret_key: " + credentials.secret_key)
 
 
-
-    if env == Environment.DEVELOPMENT:
+    # remove STAGING
+    if env == Environment.DEVELOPMENT or env == Environment.STAGING:
+        print("loading .env." + env.name.lower())
         from dotenv import load_dotenv, find_dotenv
-        load_dotenv(find_dotenv('.env.development'))
+        load_dotenv(find_dotenv(f'.env.{env}'))
+        # print all envirnoment variables
+        import os
+        print("all environment variables:")
+        print(os.environ)
 
     return Config(
         env=env,
         debug=resolve('DEBUG', default='FALSE').upper() == 'TRUE',
-        flask_env=resolve_flask_env(env=env),
 
         api_domain=resolve('API_DOMAIN', override=api_domain),
         website_domain=resolve('WEBSITE_DOMAIN', override=website_domain),

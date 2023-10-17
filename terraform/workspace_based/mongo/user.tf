@@ -1,7 +1,7 @@
 resource "mongodbatlas_database_user" "admin_user" {
-  username           = "mogara"
+  username           = "admin_user"
   password           = random_password.admin_user_password.result
-  project_id         = mongodbatlas_project.mapi_db_project.id
+  project_id         = mongodbatlas_project.this.id
   auth_database_name = "admin"
 
   roles {

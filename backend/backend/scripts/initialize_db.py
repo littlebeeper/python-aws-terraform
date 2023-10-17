@@ -1,10 +1,13 @@
+import argparse
+
 from backend.db.mongo_db_session import DbSessionMaker
 from backend.db.model import Account, UserAccountAccess
 from backend.db.mongo_setup import get_db, get_mongo_client
+from backend.env import Environment
+from backend.scripts.helpers import setup_env
 
-raise NotImplementedError()
+DEFAULT_ACCOUNT_ID = 'acct_66bb3be7044343ca84803551c82ec9a0'
 
-DEFAULT_ACCOUNT_ID = 'TODO'
 
 def main(email):
     with DbSessionMaker(get_db(), get_mongo_client()) as dbs:
@@ -13,8 +16,8 @@ def main(email):
         if account is not None:
             print(f'Account "{account.name}" already exists')
         else:
-            print(f'Creating account "Mogara"')
-            account = Account(id=DEFAULT_ACCOUNT_ID, name='Mogara')
+            print(f'Creating default account')
+            account = Account(id=DEFAULT_ACCOUNT_ID, name='Default Account')
             dbs.accounts_db.add_obj(account)
 
         # check if user_account_access already exists
@@ -34,12 +37,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Initialize account, user_account_access")
 
     parser.add_argument("--email", "-em", type=str, help="Email of the user to create")
-    parser.add_argument("--env", "-e", type=str, choices=["test", "development"], help="Environment to use")
+    parser.add_argument("--env", "-e", type=str, choices=[x.lower() for x in Environment._member_names_], help="Environment to use")
 
     args = parser.parse_args()
 
-    specified_env = Environment.TEST if args.env == "test" else Environment.DEVELOPMENT
+    specified_env = Environment[args.env.upper()]
     setup_env(specified_env, cwd_depth_from_backend_root=0)
     main(args.email)
-
-

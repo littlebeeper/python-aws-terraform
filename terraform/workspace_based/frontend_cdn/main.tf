@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "allow_access_to_cloudfront" {
         condition {
           test     = "StringEquals"
           variable = "aws:SourceArn"
-          values   = [aws_cloudfront_distribution.source.arn]
+          values   = [aws_cloudfront_distribution.this.arn]
         }
     }
 }
@@ -51,7 +51,7 @@ resource "aws_cloudfront_origin_access_control" "this" {
 }
 
 # cloudfront distribution for serving fe resources from s3 bucket above
-resource "aws_cloudfront_distribution" "source" {
+resource "aws_cloudfront_distribution" "this" {
   origin {
     domain_name = aws_s3_bucket.source.bucket_regional_domain_name
     origin_id   = aws_s3_bucket.source.id

@@ -30,7 +30,6 @@ def setup_env(
         'SECRETS_MANAGER_KEY_PROPEL_AUTH_API_KEY': propel_auth_api_key,
         'NANGO_PUBLIC_KEY': nango_public_key,
         'NANGO_SECRET_KEY': nango_secret_key,
-        'REACT_BUILD_PATH': react_build_path,
         'DB_DRIVER': db_driver,
         'DB_USERNAME': db_username,
         'DB_PASSWORD': db_password,

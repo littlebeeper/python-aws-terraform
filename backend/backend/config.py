@@ -22,7 +22,6 @@ class DbConfig(BaseModel):
 class Config(BaseModel):
     env: Environment
     debug: bool
-    flask_env: str
 
     api_domain: str
     website_domain: str

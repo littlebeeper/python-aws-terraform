@@ -58,7 +58,8 @@ def build_container(progress, dryrun, clear_cache):
     if clear_cache:
         run_command('docker system prune -a -f', dryrun=dryrun)
     run_command(
-        'docker build --platform linux/amd64 -t {0}:latest --progress={1} -f recalc.Dockerfile .'.format(BUILD_NAME, progress),
+        'docker build --platform linux/amd64 -t {0}:latest --progress={1} -f recalc.Dockerfile .'.format(BUILD_NAME,
+                                                                                                         progress),
         dryrun=dryrun)
 
 
@@ -145,7 +146,6 @@ def local_inspection(env: Environment, dryrun):
     # else:
     #     print("Local testing succeeded")
     #     run_command('docker rm -f {0} || true'.format(TEST_CONTAINER_NAME), dryrun=dryrun)
-
 
 
 def resolve_env_file(env):

@@ -3,16 +3,16 @@
    name = var.secrets_manager_key_pd_integration_key
  }
 
- data "aws_secretsmanager_secret_version" "pg_service_key" {
+ data "aws_secretsmanager_secret_version" "pd_service_key" {
      secret_id = data.aws_secretsmanager_secret.pd_service_key.id
  }
 
-resource "mongodbatlas_third_party_integration" "pagerduty_integration" {
-    project_id = mongodbatlas_project.mapi_db_project.id
+resource "mongodbatlas_third_party_integration" "pd_integration" {
+    project_id = mongodbatlas_project.this.id
     # type of integration
     type = "PAGER_DUTY"
 
-    service_key = data.aws_secretsmanager_secret_version.pg_service_key.secret_string
+    service_key = data.aws_secretsmanager_secret_version.pd_service_key.secret_string
 }
 
 # alert configuration: connections > 80% of max connections

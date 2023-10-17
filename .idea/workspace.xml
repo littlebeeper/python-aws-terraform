@@ -5,32 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb562dda-d207-456f-bf45-389750a0af7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/provider.tf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/terraform/workspace_based/pager_duty/variables.tf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/backend/scripts/secrets_manager/get_secrets_manager_key.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/outputs.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/alarm_definitions.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/alarm_definitions.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/ecs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/ecs.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/iam_policies.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/iam_policies.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/load_balancer.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/load_balancer.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/load_balancer_alarm_definitions.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/load_balancer_alarm_definitions.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/network.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/network.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/task_execution_role.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/task_execution_role.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/task_role.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/task_role.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/api_server/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/api_server/variables.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.production" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.env.qa" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.staging" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/backend_fargate.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/backend_fargate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/config_deps.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config_deps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/config_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config_helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/env.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/scripts/initialize_local_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/scripts/initialize_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/backend/scripts/test_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/scripts/test_helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/deploy_fargate.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/deploy_fargate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/deploy_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/deploy_lambda.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/fargate.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/fargate.Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/poetry.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pyproject.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/.terraform.lock.hcl" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/.terraform.lock.hcl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/main.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/lambda/lambda.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/lambda/lambda.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/main.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/db.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/db.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/outputs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/outputs.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/pager_duty_integration.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/pager_duty_integration.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/secrets.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/secrets.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/variables.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/network/flow_logs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/network/flow_logs.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/network/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/network/main.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/network/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/network/variables.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/user.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/user.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/terraform/workspace_based/outputs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/outputs.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/pager_duty/locals.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/pager_duty/locals.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/pager_duty/pager_duty_integration.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/pager_duty/main.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/variables.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/variables.tf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +319,8 @@
       <workItem from="1696352413649" duration="2991000" />
       <workItem from="1696356546787" duration="4167000" />
       <workItem from="1696367815212" duration="7654000" />
-      <workItem from="1696830038592" duration="16617000" />
+      <workItem from="1696830038592" duration="47800000" />
+      <workItem from="1697575051594" duration="5509000" />
     </task>
     <servers />
   </component>
@@ -373,6 +375,10 @@
           <url>file://$PROJECT_DIR$/backend/tests/api/test_settings_api.py</url>
           <line>22</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/backend/backend/command/account_create.py</url>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

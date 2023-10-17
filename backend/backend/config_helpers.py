@@ -22,11 +22,12 @@ def resolve_secret(env, env_key_for_secrets_manager_key, override=None):
     if override:
         return override
 
+    print("env_key_for_secrets_manager_key: " + env_key_for_secrets_manager_key)
     secrets_manager_key_name = getenv(env_key_for_secrets_manager_key)
     if secrets_manager_key_name:
         return get_secret(secrets_manager_key_name)
 
-    if env in [Environment.PRODUCTION, Environment.QA]:
+    if env in [Environment.PRODUCTION, Environment.QA, Environment.STAGING]:
         raise SecretKeyNameIsNone
 
     # fallback to non-secrets manager based env values in test / dev environments
@@ -37,17 +38,6 @@ def resolve_secret(env, env_key_for_secrets_manager_key, override=None):
         return normal_value
 
     raise SecretKeyNameIsNone
-
-
-def resolve_flask_env(env):
-    if env == Environment.PRODUCTION or env == Environment.QA:
-        return 'production'
-    elif env == Environment.DEVELOPMENT:
-        return 'development'
-    elif env == Environment.TEST:
-        return 'testing'
-    else:
-        raise FailedToResolveConfig
 
 
 class FailedToResolveConfig(Exception):

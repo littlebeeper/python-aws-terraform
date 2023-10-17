@@ -12,10 +12,9 @@ app.debug = True
 
 if __name__ == "__main__":
     config = app_config()
-    os.environ['FLASK_ENV'] = config.flask_env
     port = int(os.environ.get('PORT', 5001))
     uvicorn.run(
-        app="backend.backend_api:app",
+        app="backend.backend_fargate:app",
         host='localhost',
         port=port,
         reload=True,

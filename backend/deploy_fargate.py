@@ -11,11 +11,35 @@ from enum import Enum
 
 from backend.env import Environment
 
-TEST_CONTAINER_NAME = 'srv-server-local'
-BUILD_NAME = 'mogara-server'
-FE_S3_BUCKET = 'mogara-fe-assets'
+SERVICE_NAME = 'jaygokhale'
 
-ENV_S3_BUCKET = 'mogara-api-env-{0}'
+TEST_CONTAINER_NAME = f"{SERVICE_NAME}-api-container"
+IMAGE_NAME = f"{SERVICE_NAME}-api"
+
+
+def ecr_repo_prefix():
+    return f"{ACCOUNT_ID}.dkr.ecr.us-west-1.amazonaws.com"
+
+
+def service_name(env):
+    return f"{SERVICE_NAME}-api-{env}"
+
+
+def ecr_repo(env):
+    return f"{ACCOUNT_ID}.dkr.ecr.us-west-1.amazonaws.com/{service_name(env)}"
+
+
+def fe_s3_bucket(env):
+    return f"{SERVICE_NAME}-fe-assets-{env}"
+
+
+def env_s3_bucket(env):
+    return f"{SERVICE_NAME}-env-{env}"
+
+
+# TODO generify
+BUILD_DIR = "backend/"
+ACCOUNT_ID = "940730671260"
 
 
 class DeployAction(Enum):
@@ -27,6 +51,7 @@ class DeployAction(Enum):
 
     BUILD_FE = 6
     DEPLOY_FE = 7
+
 
 BACKEND_ACTIONS = [
     DeployAction.BUILD_API_IMAGE,
@@ -69,6 +94,7 @@ def fe_file_needs_update(bucket, key, content_type):
     finally:
         return True
 
+
 def s3_exists(bucket, key, ):
     s3 = boto3.client('s3')
     try:
@@ -81,12 +107,16 @@ def s3_exists(bucket, key, ):
     return False
 
 
-def run_command(command, dryrun, cwd=None):
+def run_command(command, dryrun, cwd=None, default_response=""):
     if dryrun:
         print('DRYRUN', end=' ')
     print(command)
     if not dryrun:
-        print(subprocess.check_output(command, shell=True, cwd=cwd).decode("utf-8"))
+        response = subprocess.check_output(command, shell=True, cwd=cwd).decode("utf-8").strip()
+        print(response)
+        return response
+    else:
+        return default_response
 
 
 def run_non_blocking_command(command, dryrun):
@@ -102,11 +132,11 @@ def run_non_blocking_command(command, dryrun):
 def build_fe_assets(env: Environment, dryrun):
     # needed to run/test locally
     run_command('yarn build:development',
-                cwd='backend/mogara-react-app',
+                cwd='backend/srv-fe',
                 dryrun=dryrun)
     if env != Environment.DEVELOPMENT:
         run_command('yarn build:{0}'.format(env),
-                    cwd='backend/mogara-react-app',
+                    cwd='backend/srv-fe',
                     dryrun=dryrun)
 
 
@@ -114,70 +144,75 @@ def deploy_fe_assets(env: Environment, dryrun):
     env_values = get_env_values(env)
     build_path = env_values['REACT_BUILD_PATH']
     s3 = boto3.client('s3')
+    print("build_path", build_path)
     for root, dirs, files in os.walk(build_path):
         for file in files:
             full_file_path = os.path.join(root, file)
-            key = "{0}/".format(env) + full_file_path[len(build_path) + 1:]
+            key = full_file_path[len(build_path) + 1:]
             assert os.path.exists(full_file_path)
             mime_type = get_mime_type(full_file_path)
             extra_args = {'ContentType': mime_type}
             if file == 'index.html':
                 extra_args['CacheControl'] = 'no-cache, no-store'
 
-            if file != 'index.html' and not fe_file_needs_update(FE_S3_BUCKET, key, mime_type):
+            bucket = fe_s3_bucket(env)
+
+            if file != 'index.html' and not fe_file_needs_update(bucket, key, mime_type):
                 print(f"Skipping {file} already exists")
                 continue
 
-            print("Uploading {0} to {1}".format(full_file_path, key))
+            print("Uploading {0} to {1}".format(full_file_path, f"{bucket}/{key}"))
             print("With args: ", extra_args)
             if not dryrun:
-                s3.upload_file(full_file_path, FE_S3_BUCKET, key, ExtraArgs=extra_args)
+                s3.upload_file(full_file_path, bucket, key, ExtraArgs=extra_args)
 
 
 def build_api_server(progress, dryrun, clear_cache):
     if clear_cache:
         run_command('docker system prune -a -f', dryrun=dryrun)
     run_command(
-        'docker build --platform linux/amd64 -t {0}:latest --progress={1} -f fargate.Dockerfile .'.format(BUILD_NAME, progress),
+        'docker build --platform linux/amd64 -t {0}:latest --progress={1} -f fargate.Dockerfile .'.format(IMAGE_NAME,
+                                                                                                          progress),
         dryrun=dryrun)
-
 
 
 def push_env_file_to_s3(env, dryrun) -> None:
     # push up new environment variables to s3
     if not dryrun:
         s3 = boto3.client('s3')
-        s3.upload_file(resolve_env_file(env), ENV_S3_BUCKET.format(env), '.env')
+        s3.upload_file(resolve_env_file(env), env_s3_bucket(env), '.env')
 
 
 def push_image_to_registry(env, dryrun) -> None:
-    env_values = get_env_values(env)
-    ecr_repo = env_values['ECR_REPO']
+    run_command(
+        f"aws ecr get-login-password | docker login --username AWS --password-stdin {ecr_repo_prefix()}",
+        dryrun=dryrun)
+    # get docker image id
 
-    ecr_path = "{0}/mapi-{1}:latest".format(ecr_repo, env)
-    run_command('docker tag {0}:latest {1}'.format(BUILD_NAME, ecr_path),
-                dryrun=dryrun)
-    run_command('aws ecr get-login-password | docker login --username AWS --password-stdin {0}'.format(ecr_repo),
-                dryrun=dryrun)
-    run_command('docker push {0}'.format(ecr_path),
-                dryrun=dryrun)
+    repo = ecr_repo(env)
+
+    # push the :latest tag
+    image_tag = run_command(
+        f"docker images --filter=reference={IMAGE_NAME} --format '{{{{.ID}}}}'",
+        dryrun=dryrun, default_response="default")
+    for ecr_path in [f"{repo}:latest", f"{repo}:{image_tag}"]:
+        run_command(f"docker tag {IMAGE_NAME}:latest {ecr_path}",
+                    dryrun=dryrun)
+        run_command('docker push {0}'.format(ecr_path),
+                    dryrun=dryrun)
 
 
 def deploy(env, dryrun) -> None:
     # kick off deployment
-    run_command(f'aws ecs update-service --cluster mapi-{env} --service mapi-{env} --force-new-deployment',
+    run_command(f'aws ecs update-service --cluster {service_name(env)} --service {service_name(env)} --force-new-deployment',
                 dryrun=dryrun)
 
     # wait for deployment to finish
-    run_command(f'aws ecs wait services-stable --cluster mapi-{env} --services mapi-{env}',
+    run_command(f'aws ecs wait services-stable --cluster {service_name(env)} --service {service_name(env)}',
                 dryrun=dryrun)
 
 
 def local_inspection(env: Environment, dryrun):
-    app_name = env.app_name()
-    print("Note: Ensure you've configured the appropriate AWS creds via 'aws configure configure --profile {0}'".format(
-        app_name))
-
     # TODO: convert aws_profile_name to be person agnostic
     development_env_values = get_env_values(Environment.DEVELOPMENT, aws_profile_name="jay")
 
@@ -186,16 +221,17 @@ def local_inspection(env: Environment, dryrun):
     config = ' '.join(map(lambda x: '-e {0}={1}'.format(x[0], x[1]), development_env_values.items()))
 
     run_command(
-        "docker run -d --rm -e SRV_ENV={0} -e PORT=80 {1} -p 5001:80 --name {2} --platform linux/amd64 {3}:latest".format(
-            Environment.DEVELOPMENT,
-            config,
-            TEST_CONTAINER_NAME,
-            BUILD_NAME,
-        ),
+        f"docker run -d --rm "
+        f"-e SRV_ENV={Environment.DEVELOPMENT} "
+        f"-e PORT=80 {config} "
+        f"-p 5001:80 "
+        f"--name {TEST_CONTAINER_NAME} "
+        f"--platform linux/amd64 {IMAGE_NAME}:latest",
         dryrun=dryrun)
     # amount of time
     if not dryrun:
         time.sleep(10)
+    print("Ready for testing")
     run_command(
         "curl http://0.0.0.0:5001/ping -vvv",
         dryrun=dryrun)
@@ -286,7 +322,7 @@ if __name__ == '__main__':
                         dest='env',
                         type=str,
                         required=True,
-                        choices=[Environment.QA.name.lower(), Environment.PRODUCTION.name.lower()],
+                        choices=[Environment.STAGING.name.lower(), Environment.PRODUCTION.name.lower()],
                         help='Environment to deploy to')
 
     parser.add_argument('--real', '-r',

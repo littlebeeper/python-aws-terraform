@@ -3,16 +3,14 @@ from dotenv import find_dotenv
 
 
 class Environment(Enum):
-    QA = 1
-    PRODUCTION = 2
-    DEVELOPMENT = 3
-    TEST = 4
+    QA = 1 # deprecated
+    STAGING = 2
+    PRODUCTION = 3
+    DEVELOPMENT = 4
+    TEST = 5
 
     def __str__(self):
         return self.name.lower()
-
-    def app_name(self):
-        return "mogara-{0}".format(self.name.lower())
 
 
 def resolve_env_file(env):

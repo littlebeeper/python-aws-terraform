@@ -6,5 +6,5 @@ resource "aws_flow_log" "example" {
 }
 
 resource "aws_s3_bucket" "flow_logs_bucket" {
-  bucket = "mogara-vpc-flow-logs-${var.name}"
+  bucket = "vpc-flow-logs-${var.name}"
 }

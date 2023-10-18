@@ -5,33 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb562dda-d207-456f-bf45-389750a0af7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/backend/scripts/secrets_manager/get_secrets_manager_key.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/outputs.tf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.development" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.env.production" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.production" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.env.qa" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.env.staging" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/backend_fargate.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/backend_fargate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/config_deps.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config_deps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/config_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/config_helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/env.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/env.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/scripts/initialize_local_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/scripts/initialize_db.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/backend/scripts/test_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/backend/scripts/test_helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/deploy_fargate.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/deploy_fargate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/deploy_lambda.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/deploy_lambda.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/fargate.Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/fargate.Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/poetry.lock" beforeDir="false" afterPath="$PROJECT_DIR$/backend/poetry.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pyproject.toml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pyproject.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/.terraform.lock.hcl" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/.terraform.lock.hcl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/main.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/frontend_cdn/main.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/db.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/db.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/outputs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/outputs.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/pager_duty_integration.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/pager_duty_integration.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/secrets.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/secrets.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/mongo/user.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/mongo/user.tf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/outputs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/outputs.tf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/terraform/workspace_based/network/flow_logs.tf" beforeDir="false" afterPath="$PROJECT_DIR$/terraform/workspace_based/network/flow_logs.tf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,11 +92,11 @@
       <recent name="$PROJECT_DIR$/output/production" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/terraform/workspace_based" />
       <recent name="$PROJECT_DIR$/terraform/workspace_based/cloudfront" />
       <recent name="$PROJECT_DIR$/terraform/workspace_based/cloudfront/variables.tf" />
       <recent name="$PROJECT_DIR$/terraform/workspace_based/fargate" />
       <recent name="$PROJECT_DIR$/backend/local_services" />
-      <recent name="$PROJECT_DIR$/backend/backend/api/auth" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest for test_settings_api.SettingsApiTest.test_update_settings">
